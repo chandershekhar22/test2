@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/user.controller.js";
+import { loginUser, registerUser,logoutUser } from "../controllers/user.controller.js";
 import {upload} from "../middlewares/multer.middlewares.js"
-
+import  {verifyJWT} from "../middlewares/auth.middleware.js"
 
 const router=Router()
 
@@ -18,4 +18,8 @@ router.route("/register").post(
     ]),
     registerUser
 )
-export default router
+router.route("/login").post(loginUser)
+
+//securd routes
+router.route("/logout").post(verifyJWT,logoutUser)
+export default router 
